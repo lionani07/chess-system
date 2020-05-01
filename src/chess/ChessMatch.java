@@ -2,6 +2,9 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
+import boardgame.Position;
+import chess.pieces.King;
+import chess.pieces.Rook;
 
 public class ChessMatch {
     private  static final int QTD_ROWS = 8;
@@ -11,6 +14,7 @@ public class ChessMatch {
 
     public ChessMatch() {
         this.board = new Board(QTD_ROWS,QTD_COLUMNS);
+        initialSetup();
     }
 
     public ChessPiece[][] getPieces() {
@@ -21,5 +25,11 @@ public class ChessMatch {
             }
         }
         return mat;
+    }
+
+    private void initialSetup() {
+        this.board.placePiece(new Rook(this.board, Color.WHITE), new Position(2, 1));
+        this.board.placePiece(new King(this.board, Color.WHITE), new Position(0, 4));
+        this.board.placePiece(new King(this.board, Color.WHITE), new Position(7, 4));
     }
 }
