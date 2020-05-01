@@ -1,4 +1,4 @@
-package com.chess;
+package application;
 
 import com.chess.boardgame.Position;
 
