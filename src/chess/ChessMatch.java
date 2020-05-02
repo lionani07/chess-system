@@ -11,11 +11,29 @@ public class ChessMatch {
     private static final int QTD_ROWS = 8;
     private static final int QTD_COLUMNS = 8;
 
+    private int turn;
+    private Color currentPlayer;
+
     private Board board;
 
     public ChessMatch() {
         this.board = new Board(QTD_ROWS, QTD_COLUMNS);
+        turn = 1;
+        currentPlayer = Color.WHITE;
         initialSetup();
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    private void nextTurn() {
+        turn++;
+        this.currentPlayer = currentPlayer.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
     }
 
     public ChessPiece[][] getPieces() {
@@ -40,6 +58,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
+        nextTurn();
         return (ChessPiece) capturedPiece;
     }
 
@@ -51,8 +70,12 @@ public class ChessMatch {
     }
 
     private void validateSourcePosition(Position position) {
+        Color colorPiece = ((ChessPiece) this.board.piece(position)).getColor();
         if (!this.board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
+        }
+        if (!currentPlayer.equals(colorPiece)) {
+            throw new ChessException("The chosen piece is not yours");
         }
         if (!this.board.piece(position).isThereAnyPossibleMove()) {
             throw new ChessException("There is no possible moves for chosen piece");
