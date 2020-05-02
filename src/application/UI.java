@@ -56,7 +56,7 @@ public class UI {
         for (int i = 0; i < qtdPiece; i++) {
             System.out.printf("%s ", qtdPiece - i);
             for (int j = 0; j < qtdPiece; j++) {
-                printPiece(pieces[i][j]);
+                printPiece(pieces[i][j], false);
             }
             System.out.printf("%s ", qtdPiece - i);
             System.out.println("");
@@ -64,9 +64,26 @@ public class UI {
         System.out.println("  a b c d e f g h");
     }
 
-    private static void printPiece(ChessPiece piece) {
+    public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+        int qtdPiece = pieces.length;
+        System.out.println("  a b c d e f g h");
+        for (int i = 0; i < qtdPiece; i++) {
+            System.out.printf("%s ", qtdPiece - i);
+            for (int j = 0; j < qtdPiece; j++) {
+                printPiece(pieces[i][j], possibleMoves[i][j]);
+            }
+            System.out.printf("%s ", qtdPiece - i);
+            System.out.println("");
+        }
+        System.out.println("  a b c d e f g h");
+    }
+
+    private static void printPiece(ChessPiece piece, boolean background) {
+        if (background) {
+            System.out.print(ANSI_BLUE_BACKGROUND);
+        }
         if (Objects.isNull(piece)) {
-            System.out.print("-");
+            System.out.print("-" + ANSI_RESET);
         } else {
             if (piece.getColor() == Color.WHITE) {
                 System.out.print(ANSI_WHITE + piece + ANSI_RESET);
