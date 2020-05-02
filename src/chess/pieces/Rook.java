@@ -1,6 +1,7 @@
 package chess.pieces;
 
 import boardgame.Board;
+import boardgame.Position;
 import chess.ChessPiece;
 import chess.Color;
 
@@ -18,6 +19,49 @@ public class Rook extends ChessPiece {
     @Override
     public boolean[][] possibleMoves() {
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
+
+        Position positionToMove = new Position(0, 0);
+
+        //Up
+        positionToMove.setValues(this.position.getRow() - 1, this.position.getColumn());
+        while (this.board.positionExists(positionToMove) && !this.board.thereIsAPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+            positionToMove.toUp();
+        }
+        if (this.board.positionExists(positionToMove) && isThereOpponentPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+        }
+
+        //Left
+        positionToMove.setValues(this.position.getRow(), this.position.getColumn() - 1);
+        while (this.board.positionExists(positionToMove) && !this.board.thereIsAPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+            positionToMove.toLeft();
+        }
+        if (this.board.positionExists(positionToMove) && isThereOpponentPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+        }
+
+        //Right
+        positionToMove.setValues(this.position.getRow(), this.position.getColumn() + 1);
+        while (this.board.positionExists(positionToMove) && !this.board.thereIsAPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+            positionToMove.toRight();
+        }
+        if (this.board.positionExists(positionToMove) && isThereOpponentPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+        }
+
+        //Down
+        positionToMove.setValues(this.position.getRow() + 1, this.position.getColumn());
+        while (this.board.positionExists(positionToMove) && !this.board.thereIsAPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+            positionToMove.toDown();
+        }
+        if (this.board.positionExists(positionToMove) && isThereOpponentPiece(positionToMove)) {
+            mat[positionToMove.getRow()][positionToMove.getColumn()] = true;
+        }
+
         return mat;
     }
 }
