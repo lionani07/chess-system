@@ -31,6 +31,11 @@ public class Position {
         this.column = column;
     }
 
+    public void moveTo(Position position ) {
+        this.row = position.getRow();
+        this.column = position.getColumn();
+    }
+
     public void toUp() {
         this.setRow(this.row - 1);
     }
@@ -47,8 +52,30 @@ public class Position {
         this.setColumn(this.column + 1);
     }
 
+    public void toLeftDown() {
+        toLeft();
+        toDown();
+    }
+
+    public void toLeftUP() {
+        toLeft();
+        toUp();
+    }
+
+    public void toRightDown() {
+        toRight();
+        toDown();
+    }
+
+    public void toRightUP() {
+        toRight();
+        toUp();
+    }
+
     @Override
     public String toString() {
         return String.format("%s, %s", this.row, this.column);
     }
+
+
 }

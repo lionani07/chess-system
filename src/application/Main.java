@@ -1,5 +1,7 @@
 package application;
 
+import boardgame.Piece;
+import boardgame.Position;
 import chess.ChessException;
 import chess.ChessMatch;
 import chess.ChessPiece;
@@ -22,8 +24,10 @@ public class Main {
 
                 System.out.println("Source: ");
                 ChessPosition source = UI.readChessPosition(scanner);
+                Position position = source.toPosition();
+                ChessPiece chessPieceSource = chessMatch.getPieces()[position.getRow()][position.getColumn()];
                 boolean[][] possibleMoves = chessMatch.possibleMoves(source);
-                UI.printBoard(chessMatch.getPieces(), possibleMoves);
+                UI.printBoard(chessMatch.getPieces(), possibleMoves, chessPieceSource);
 
                 System.out.println();
 

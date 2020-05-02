@@ -23,11 +23,11 @@ public class ChessPosition {
         return row;
     }
 
-    protected Position toPosition() {
+    public Position toPosition() {
         return new Position(8 - this.row, this.column - 'a');
     }
 
-    protected ChessPosition fromPosition(Position position) {
+    public ChessPosition fromPosition(Position position) {
         return new ChessPosition((char) ('a' - position.getColumn()), 8 - position.getRow());
     }
 
